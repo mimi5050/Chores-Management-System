@@ -33,6 +33,7 @@
       padding: 15px;
       color: white;
       text-decoration: none;
+      margin-bottom:30px;
     }
 
     .navbar a:hover {
@@ -41,11 +42,11 @@
 
     /* Content Styles */
     .content {
-      width: 75%; /* Occupies 75% of the container */
+      width: 75%; 
       padding: 20px;
     }
 
-    /* Styles for the Manage Assignment Page */
+ 
     .assignment-container {
       max-width: 80%;
       margin: 0 auto;
@@ -117,8 +118,6 @@
       background-color: #368983;
       color: white;
     }
-
-    /* Add spacing between buttons in table actions */
     .table-actions button {
       margin-right: 5px;
     }
@@ -139,7 +138,7 @@
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      margin-top:300px;
+      margin-top:10px;
     }
   </style>
 </head>
@@ -148,7 +147,7 @@
 
 <div class="navbar">
     <a style="font-size: 24px;"> <strong>Chore MS</strong> </a>
-    <a href="home.php"><i class="fas fa-home"></i><strong> Home</strong></a>
+    <a href="admin_dashboard.php"><i class="fas fa-home"></i><strong> Home</strong></a>
     <a href="chores.php"><i class="fas fa-tasks"></i><strong> Chores</strong></a>
     <a href="chores_assignment.php"><i class="fas fa-tasks"></i><strong> Chores Assignment</strong></a>
     <a href="manage_chores.php"><i class="fas fa-tasks"></i><strong> Manage Chores</strong></a>

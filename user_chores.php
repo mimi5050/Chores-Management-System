@@ -32,7 +32,6 @@
       padding: 15px;
       color: white;
       text-decoration: none;
-      margin-bottom:30px;
     }
 
     .navbar a:hover {
@@ -137,7 +136,7 @@
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      margin-top:10px;
+      margin-top:300px;
     }
 
 
@@ -204,11 +203,9 @@
 
 <div class="navbar">
     <a style="font-size: 24px;"> <strong>Chore MS</strong> </a>
-    <a href="admin_dashboard.php"><i class="fas fa-home"></i><strong> Home</strong></a>
-    <a href="chores.php"><i class="fas fa-tasks"></i><strong> Chores</strong></a>
-    <a href="manage_chores.php"><i class="fas fa-tasks"></i><strong> Manage Chores</strong></a>
-    <a href="chores_assignment.php"><i class="fas fa-tasks"></i><strong> Chores Assignment</strong></a>
-    <a href="settings.php"><i class="fas fa-cogs"></i><strong> Settings</strong></a>
+    <a href="regular_user_dashboard.php"><i class="fas fa-home"></i><strong> Home</strong></a>
+    <a href="user_chores.php"><i class="fas fa-tasks"></i><strong> Chores</strong></a>
+    <a href="user_settings.php"><i class="fas fa-cogs"></i><strong> Settings</strong></a>
     <a href="logout.php" class="logout-button"><i class="fas fa-sign-out-alt"></i><strong> Logout</strong></a>
 </div>
 
