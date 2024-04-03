@@ -1,3 +1,30 @@
+
+<?php
+
+include 'connection.php';
+
+// Query to get the count of chores in progress
+$sqlInProgress = "SELECT COUNT(*) AS count FROM assignment WHERE sid = 2";
+$resultInProgress = mysqli_query($conn, $sqlInProgress);
+$rowInProgress = mysqli_fetch_assoc($resultInProgress);
+$countInProgress = $rowInProgress['count'];
+
+// Query to get the count of incomplete chores
+$sqlIncomplete = "SELECT COUNT(*) AS count FROM assignment WHERE sid = 4"; 
+$resultIncomplete = mysqli_query($conn, $sqlIncomplete);
+$rowIncomplete = mysqli_fetch_assoc($resultIncomplete);
+$countIncomplete = $rowIncomplete['count'];
+
+// Query to get the count of completed chores
+$sqlCompleted = "SELECT COUNT(*) AS count FROM assignment WHERE sid = 3"; 
+$resultCompleted = mysqli_query($conn, $sqlCompleted);
+$rowCompleted = mysqli_fetch_assoc($resultCompleted);
+$countCompleted = $rowCompleted['count'];
+
+// Close the database connection
+mysqli_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,12 +68,12 @@
       background-color: #2c6f6b;
     }
 
-    /* Dashboard Styles */
 
     .right-section {
       width: 100%;
       background-color: white;
-      margin-right: 20px;
+      margin-right: -20px;
+      margin-left:20px;
     }
 
     .dashboard-header {
@@ -72,7 +99,7 @@
       margin-bottom: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(54, 137, 131, 0.5);
-      cursor: pointer; /* Added cursor */
+      cursor: pointer;
     }
 
     .chore-stat-container h3 {
@@ -85,7 +112,8 @@
       border: 2px solid #368983;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(54, 137, 131, 0.5);
-      margin-top: 25px;
+      margin-top: 200px;
+      margin-left:-1000px;
     }
 
     .chore-entry {
@@ -134,25 +162,26 @@
 </div>
 
 
-  <div class="right-section">
+<div class="right-section">
     <div class="dashboard-header"><strong>Dashboard</strong></div>
 
     <div class="dashboard-container">
-      <div class="chore-stat-container in-progress" onclick="redirectToChoreManagement()">
-        <h3><i class="fas fa-spinner"></i> In Progress</h3>
-        <p style="font-weight: bold; font-size: 20px;">4</p>
-      </div>
+        <div class="chore-stat-container in-progress" onclick="redirectToChoreManagement()">
+            <h3><i class="fas fa-spinner"></i> In Progress</h3>
+            <p style="font-weight: bold; font-size: 20px;"><?php echo $countInProgress; ?></p>
+        </div>
 
-      <div class="chore-stat-container incomplete" onclick="redirectToChoreManagement()">
-        <h3><i class="fas fa-exclamation-circle"></i> Incomplete</h3>
-        <p style="font-weight: bold; font-size: 20px;">14</p>
-      </div>
+        <div class="chore-stat-container incomplete" onclick="redirectToChoreManagement()">
+            <h3><i class="fas fa-exclamation-circle"></i> Incomplete</h3>
+            <p style="font-weight: bold; font-size: 20px;"><?php echo $countIncomplete; ?></p>
+        </div>
 
-      <div class="chore-stat-container completed" onclick="redirectToChoreManagement()">
-        <h3><i class="fas fa-check-circle"></i> Completed</h3>
-        <p style="font-weight: bold; font-size: 20px;">18</p>
-      </div>
+        <div class="chore-stat-container completed" onclick="redirectToChoreManagement()">
+            <h3><i class="fas fa-check-circle"></i> Completed</h3>
+            <p style="font-weight: bold; font-size: 20px;"><?php echo $countCompleted; ?></p>
+        </div>
     </div>
+</div>
 
     <div class="chore-history-container">
       <h2 style="text-align: center;">Chore History</h2>

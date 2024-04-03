@@ -157,37 +157,31 @@
     <div class="dashboard-header"><strong>Dashboard</strong></div>
     <div class="assignment-container">
         <h2>Assign Chore</h2>
+    
         <form action="assign_chore_action.php" method="post" name="assignmentForm" id="assignmentForm">
+    <div class="form-group">
+        <label for="assignPerson">Assign Person:</label>
+        <!-- Include PHP code to fetch user list and generate options -->
+        <?php include 'select_users_names.php'; ?>
+    </div>
 
-            <div class="form-group">
-                <label for="assignPerson">Assign Person:</label>
-                <!-- Include PHP code to fetch user list -->
-                <?php include 'select_role_fxn.php'; ?>
-            </div>
-            <div class="form-group">
-                <label for="assignChore">Assign Chore:</label>
-                <!-- Include PHP code to fetch chore list -->
-                <?php include 'chores_list.php'; ?> 
-            </div>
-            <div class="form-group">
-                <label for="chorestatus">Choose Chore Status:</label>
-                <!-- Include PHP code to fetch chore list -->
-                <?php include 'chore_status_list.php'; ?> 
-            </div>
-            <div class="form-group">
-                <label for="dueDate">Due Date:</label>
-                <input type="date" id="dueDate" name="date_due" required>
-            </div>
-            
-            <div class="form-group">
-                <input type="hidden" name="date_assign" value="<?php echo date('Y-m-d'); ?>">
-                <input type="hidden" name="last_updated" value="<?php echo date('Y-m-d H:i:s'); ?>">
-                <input type="hidden" name="who_assigned" value="1"> <!-- Assuming 1 is the ID of the user assigning chores -->
-                <button type="submit">Assign Chore</button>
-            </div>
-        </form>
+    <div class="form-group">
+        <label for="assignChore">Assign Chore:</label>
+        <!-- Include PHP code to fetch chore list and generate options -->
+        <?php include 'chores_list.php'; ?> 
+    </div>
 
-        <!-- Table to display assigned chores -->
+    <div class="form-group">
+        <label for="dueDate">Due Date:</label>
+        <input type="date" id="dueDate" name="dueDate" required>
+    </div>
+    <input type="hidden" name="assignChoreBtn" value="1">
+    <div class="form-group">
+        <button type="submit">Assign Chore</button>
+    </div>
+</form>
+
+
         <table>
         <tr>
           <th>Chore Name</th>

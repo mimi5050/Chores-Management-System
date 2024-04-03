@@ -30,6 +30,7 @@
       padding: 15px;
       color: white;
       text-decoration: none;
+      margin-bottom:30px;
     }
 
     .navbar a:hover {
@@ -84,7 +85,7 @@
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      margin-top:300px;
+      margin-top:10px;
     }
 
   </style>

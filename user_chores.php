@@ -32,19 +32,20 @@
       padding: 15px;
       color: white;
       text-decoration: none;
+      margin-bottom:30px;
     }
 
     .navbar a:hover {
       background-color: #2c6f6b;
     }
 
-    /* Content Styles */
+    
     .content {
-      width: 75%; /* Occupies 75% of the container */
+      width: 75%;
       padding: 20px;
     }
 
-    /* Styles for the Chores Page */
+    
     .chores-container {
       max-width: 800px;
       margin: 0 auto;
@@ -122,7 +123,7 @@
       background-color:#368983;
     }
 
-    /* Styles for the delete and edit buttons */
+  
     .table-actions button {
       padding: 8px 15px;
       margin-right: 10px;
@@ -136,7 +137,7 @@
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      margin-top:300px;
+      margin-top:10px;
     }
 
 

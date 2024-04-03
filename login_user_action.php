@@ -1,75 +1,62 @@
 <?php
-// Starting session
-session_start();
+// Include the connection file
+include("connection.php");
 
-// Including connection file
-include_once 'connection.php';
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Collect form data
+    $email = $_POST["username"];
+    $password = $_POST["password"];
 
-// Checking if login button was clicked
-if(!isset($_POST['login_button'])) {
-    // Stopping processing and providing appropriate message or redirection
-    header("Location: login_view.php"); // this redirects to login page if the user did not click login button
-    exit();
+    // Query to fetch user data based on email
+    $sql = "SELECT * FROM People WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows == 1) {
+        // User found, verify password
+        $user = $result->fetch_assoc();
+        if (password_verify($password, $user['passwd'])) {
+            // Password is correct, start session and redirect based on role
+            
+            session_start();
+            $_SESSION['user'] = $user;
+            $_SESSION['user_id'] = $user['pid'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['role'] = $user['rid'];
+            $_SESSION['family_role'] = $user['fid'];
+            
+           
+            
+            if ($user['fid'] == 2 || $user['fid'] == 1) {
+                header("Location: admin_dashboard.php");
+                exit();
+            } else {
+                header("Location: regular_user_dashboard.php");
+                exit();
+            }
+            
+        } else {
+            // Incorrect password
+            session_start();
+            $_SESSION['error_message'] = "Incorrect email or password.";
+            header("Location: login_view.php");
+            exit();
+        }
+    } else {
+        // User not found
+        session_start();
+        $_SESSION['error_message'] = "User not found.";
+        header("Location: login_view.php");
+        exit();
+    }
+
+    // Close statement
+    $stmt->close();
 }
 
-// Collecting form data and store in variables
-$email = $_POST['username']; 
-$password = $_POST['password'];
-
-// Writing  a query to SELECT a record from the People table using the email
-$sql = "SELECT * FROM People WHERE email = ?";
-
-// Preparing statement
-$stmt = $conn->prepare($sql);
-
-if (!$stmt) {
-    // Error handling for query preparation failure
-    $_SESSION['error_message'] = "Database error: " . $conn->error; 
-    header("Location: login_view.php"); 
-    exit();
-}
-
-// Bind parameters
-$stmt->bind_param("s", $email);
-
-// Execute the query
-if (!$stmt->execute()) {
-    // Error handling for query execution failure
-    $_SESSION['error_message'] = "Database error: " . $stmt->error; 
-    header("Location: login_view.php"); 
-    exit();
-}
-
-// Get result
-$result = $stmt->get_result();
-
-// Check if any row was returned
-if($result->num_rows == 0) {
-    // No record found, provide appropriate response
-    $_SESSION['error_message'] = "Incorrect username or password"; 
-    header("Location: login_view.php");
-    exit();
-}
-
-// Fetch the record
-$user = $result->fetch_assoc();
-
-// Verify password using password_verify
-if(!password_verify($password, $user['passwd'])) {
-    // Password verification fails, provide appropriate response
-    $_SESSION['error_message'] = "Incorrect username or password"; 
-    header("Location: login_view.php"); 
-    exit();
-}
-
-// Clear any previous error message
-unset($_SESSION['error_message']);
-
-// Create session for user id and role id
-$_SESSION['user_id'] = $user['pid']; 
-$_SESSION['role_id'] = $user['rid']; 
-
-// Redirect to home page
-header("Location: home.php");
-exit();
+// Close connection
+$conn->close();
 ?>

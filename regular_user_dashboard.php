@@ -1,13 +1,40 @@
+
+<?php
+
+include 'connection.php';
+
+// Query to get the count of chores in progress
+$sqlInProgress = "SELECT COUNT(*) AS count FROM assignment WHERE sid = 2";
+$resultInProgress = mysqli_query($conn, $sqlInProgress);
+$rowInProgress = mysqli_fetch_assoc($resultInProgress);
+$countInProgress = $rowInProgress['count'];
+
+// Query to get the count of incomplete chores
+$sqlIncomplete = "SELECT COUNT(*) AS count FROM assignment WHERE sid = 4"; 
+$resultIncomplete = mysqli_query($conn, $sqlIncomplete);
+$rowIncomplete = mysqli_fetch_assoc($resultIncomplete);
+$countIncomplete = $rowIncomplete['count'];
+
+// Query to get the count of completed chores
+$sqlCompleted = "SELECT COUNT(*) AS count FROM assignment WHERE sid = 3"; 
+$resultCompleted = mysqli_query($conn, $sqlCompleted);
+$rowCompleted = mysqli_fetch_assoc($resultCompleted);
+$countCompleted = $rowCompleted['count'];
+
+// Close the database connection
+mysqli_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
+  <title>Regular User</title>
   <script src="https://kit.fontawesome.com/1b7b6b3da2.js" crossorigin="anonymous"></script>
   <style>
-    /* Common Styles */
+    
 
     body {
       background-color: white;
@@ -34,13 +61,13 @@
       padding: 15px;
       color: white;
       text-decoration: none;
+      margin-bottom:30px;
     }
 
     .navbar a:hover {
       background-color: #2c6f6b;
     }
 
-    /* Dashboard Styles */
 
     .right-section {
       width: 100%;
@@ -71,7 +98,7 @@
       margin-bottom: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(54, 137, 131, 0.5);
-      cursor: pointer; /* Added cursor */
+      cursor: pointer; 
     }
 
     .chore-stat-container h3 {
@@ -85,6 +112,8 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(54, 137, 131, 0.5);
       margin-top: 25px;
+      margin-left:-1000px;
+      margin-top:200px;
     }
 
     .chore-entry {
@@ -116,7 +145,7 @@
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      margin-top:300px;
+      margin-top:10px;
     }
   </style>
 </head>
@@ -134,21 +163,22 @@
     <div class="dashboard-header"><strong>Dashboard</strong></div>
 
     <div class="dashboard-container">
-      <div class="chore-stat-container in-progress" onclick="redirectToChoreManagement()">
-        <h3><i class="fas fa-spinner"></i> In Progress</h3>
-        <p style="font-weight: bold; font-size: 20px;">4</p>
-      </div>
+        <div class="chore-stat-container in-progress" onclick="redirectToChoreManagement()">
+            <h3><i class="fas fa-spinner"></i> In Progress</h3>
+            <p style="font-weight: bold; font-size: 20px;"><?php echo $countInProgress; ?></p>
+        </div>
 
-      <div class="chore-stat-container incomplete" onclick="redirectToChoreManagement()">
-        <h3><i class="fas fa-exclamation-circle"></i> Incomplete</h3>
-        <p style="font-weight: bold; font-size: 20px;">14</p>
-      </div>
+        <div class="chore-stat-container incomplete" onclick="redirectToChoreManagement()">
+            <h3><i class="fas fa-exclamation-circle"></i> Incomplete</h3>
+            <p style="font-weight: bold; font-size: 20px;"><?php echo $countIncomplete; ?></p>
+        </div>
 
-      <div class="chore-stat-container completed" onclick="redirectToChoreManagement()">
-        <h3><i class="fas fa-check-circle"></i> Completed</h3>
-        <p style="font-weight: bold; font-size: 20px;">18</p>
-      </div>
+        <div class="chore-stat-container completed" onclick="redirectToChoreManagement()">
+            <h3><i class="fas fa-check-circle"></i> Completed</h3>
+            <p style="font-weight: bold; font-size: 20px;"><?php echo $countCompleted; ?></p>
+        </div>
     </div>
+</div>
 
     <div class="chore-history-container">
       <h2 style="text-align: center;">Chore History</h2>
